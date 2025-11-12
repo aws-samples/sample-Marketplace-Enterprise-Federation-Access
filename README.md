@@ -394,10 +394,6 @@ The CDK automatically creates CloudWatch alarms for:
 4. Test thoroughly
 5. Submit a pull request
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Support
 
 For support and questions:
@@ -424,3 +420,11 @@ For support and questions:
 - [AWS Marketplace Documentation](https://docs.aws.amazon.com/marketplace/)
 - [React + Vite Documentation](https://vitejs.dev/guide/)
 - [AWS Cloudscape Design System](https://cloudscape.design/)
+
+## Security
+
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.
