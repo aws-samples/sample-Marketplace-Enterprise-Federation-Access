@@ -1,0 +1,64 @@
+{
+  "products": {
+    "gitlab": {
+      "id": "prodview-vehcu2drxakic",
+      "name": "GitLab Premium Self Managed",
+      "vendor": "GitLab"
+    },
+    "okta": {
+      "id": "prodview-r4vzqg4bgndda",
+      "name": "Okta Platform",
+      "vendor": "Okta, Inc"
+    },
+    "newrelic": {
+      "id": "prodview-yg3ykwh5tmolg",
+      "name": "New Relic: the Observability Platform",
+      "vendor": "New Relic"
+    },
+    "crowdstrike": {
+      "id": "prodview-s3bqcrmm5ixaw",
+      "name": "CrowdStrike Falcon Endpoint Protection",
+      "vendor": "CrowdStrike"
+    },
+    "trend": {
+      "id": "prodview-jktqkevcm3zbc",
+      "name": "Trend Enterprise Security Solutions",
+      "vendor": "Trend Micro"
+    },
+    "wiz": {
+      "id": "prodview-ibgbkrqusncsm",
+      "name": "WIZ Infrastructure Security Platform",
+      "vendor": "Wiz"
+    },
+    "sisense": {
+      "id": "prodview-whvwqekecyakw",
+      "name": "Sisense Fusion Analytics Platform",
+      "vendor": "Sisense"
+    },
+    "teradata": {
+      "id": "prodview-ghlr2wogdfphq",
+      "name": "Teradata Vantage Enterprise (DIY)",
+      "vendor": "Teradata"
+    },
+    "ibm": {
+      "id": "prodview-pzt5r2kg6mmmg",
+      "name": "IBM Planning Analytics as a Service",
+      "vendor": "IBM Software"
+    },
+    "jenkins": {
+      "id": "prodview-aucq2wmsxh45o",
+      "name": "Jenkins on Windows Server 2019",
+      "vendor": "Cloud Infrastructure Services"
+    },
+    "redhat": {
+      "id": "prodview-tzp5hudzt3goq",
+      "name": "Red Hat OpenShift Kubernetes Engine (Arm)",
+      "vendor": "Red Hat"
+    },
+    "grafana": {
+      "id": "prodview-gfehaksuakph4",
+      "name": "Grafana Cloud Kubernetes Monitoring",
+      "vendor": "Grafana Labs"
+    }
+  }
+}
