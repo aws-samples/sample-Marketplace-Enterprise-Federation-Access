@@ -65,7 +65,7 @@ A secure AWS marketplace federation application that provides authenticated acce
 
 ## Prerequisites
 
-- **Node.js** 18.x or higher
+- **Node.js** 20.x, 22.x, 24.x or higher
 - **AWS CLI** configured with appropriate permissions
 - **Docker** (for CDK bundling)
 - **npm** or **yarn** package manager

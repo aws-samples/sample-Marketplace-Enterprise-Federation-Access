@@ -34,7 +34,7 @@ A modern React application built with Vite and AWS Cloudscape Design System that
 
 ## Prerequisites
 
-- **Node.js** 18.x or higher
+- **Node.js** 20.x, 22.x, 24.x or higher
 - **npm** or **yarn** package manager
 - **Backend deployed** - API Gateway and Cognito must be deployed first
 
@@ -273,10 +273,10 @@ npm run build
 
 ### Browser Compatibility
 
-- ✅ Chrome 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
+- ✅ Chrome 109+
+- ✅ Firefox 132+
+- ✅ Safari 18+
+- ✅ Edge 131+
 
 ## Performance
 

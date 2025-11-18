@@ -39,7 +39,7 @@ The backend consists of three main CDK stacks:
 
 ## Prerequisites
 
-- **Node.js** 18.x or higher
+- **Node.js** 20.x, 22.x, 24.x or higher
 - **AWS CLI** configured with appropriate permissions
 - **Docker** (for Lambda bundling)
 - **CDK CLI** v2.x (`npm install -g aws-cdk`)

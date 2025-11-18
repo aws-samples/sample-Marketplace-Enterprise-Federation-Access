@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Amplify, Auth } from "aws-amplify";
+import { Amplify } from "aws-amplify";
+import { fetchAuthSession, signOut as amplifySignOut } from "aws-amplify/auth";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import "../styles/App.css";
@@ -42,13 +43,15 @@ const hasValidConfig =
   !config.COGNITO_USER_POOL_ID.includes('YOUR_') &&
   !config.COGNITO_USER_POOL_ID.includes('mock');
 
-// Configure Amplify v5 only if we have valid config
+// Configure Amplify v6 only if we have valid config
 if (hasValidConfig) {
   const amplifyConfig = {
     Auth: {
-      region: config.COGNITO_REGION || "us-east-1",
-      userPoolId: config.COGNITO_USER_POOL_ID,
-      userPoolWebClientId: config.COGNITO_USER_POOL_WEB_CLIENT_ID,
+      Cognito: {
+        userPoolId: config.COGNITO_USER_POOL_ID,
+        userPoolClientId: config.COGNITO_USER_POOL_WEB_CLIENT_ID,
+        region: config.COGNITO_REGION || "us-east-1",
+      }
     },
   };
   
@@ -71,8 +74,8 @@ function AppContent({ signOut, user }) {
   useEffect(() => {
     const getToken = async () => {
       try {
-        const session = await Auth.currentSession();
-        const idToken = session.getIdToken().getJwtToken();
+        const session = await fetchAuthSession();
+        const idToken = session.tokens?.idToken?.toString();
         setToken(idToken);
       } catch (error) {
         console.error("Token error:", error);
@@ -121,8 +124,8 @@ function AppContent({ signOut, user }) {
       if (typeof signOut === "function") {
         await signOut();
       } else {
-        // Fallback to Auth.signOut if signOut prop is not available
-        await Auth.signOut();
+        // Fallback to amplifySignOut if signOut prop is not available
+        await amplifySignOut();
         window.location.reload();
       }
     } catch (error) {
@@ -132,7 +135,7 @@ function AppContent({ signOut, user }) {
         if (typeof signOut === "function") {
           await signOut();
         } else {
-          await Auth.signOut();
+          await amplifySignOut();
           window.location.reload();
         }
       } catch (fallbackError) {
