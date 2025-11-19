@@ -562,7 +562,7 @@ The CDK automatically creates these alarms:
    - Threshold: > 10 throttled requests
    - Action: Auto-scaling trigger
 
-## 🔧 Advanced Configuration
+## Advanced Configuration
 
 ### Custom Domain
 
