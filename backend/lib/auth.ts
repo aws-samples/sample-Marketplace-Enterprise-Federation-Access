@@ -6,12 +6,16 @@ import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as iam from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
 
+export interface AuthStackProps extends cdk.StackProps {
+  readonly cloudfrontUrl?: string; // Optional CloudFront URL for production callbacks
+}
+
 export class AuthStack extends cdk.Stack {
   public readonly userPool: cognito.UserPool;
   public readonly client: cognito.UserPoolClient;
   public readonly identityPool: cognito.CfnIdentityPool;
 
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: AuthStackProps) {
     super(scope, id, props);
 
     // Create User Pool
@@ -54,6 +58,24 @@ export class AuthStack extends cdk.Stack {
       ],
     });
 
+    // Build callback and logout URLs
+    // Include both local development URLs and production CloudFront URL (if provided)
+    const callbackUrls = [
+      'http://localhost:5173',  // Vite dev server (default port)
+      'http://localhost:3000',  // Alternative local port
+    ];
+    
+    const logoutUrls = [
+      'http://localhost:5173',  // Vite dev server (default port)
+      'http://localhost:3000',  // Alternative local port
+    ];
+
+    // Add CloudFront URL if provided (for production)
+    if (props?.cloudfrontUrl) {
+      callbackUrls.push(props.cloudfrontUrl);
+      logoutUrls.push(props.cloudfrontUrl);
+    }
+
     // Create User Pool Client
     const client = new cognito.UserPoolClient(this, "WebClient", {
       userPool,
@@ -79,8 +101,8 @@ export class AuthStack extends cdk.Stack {
             scopeDescription: 'Read access'
           })
         ],
-        callbackUrls: ['http://localhost:3000'],
-        logoutUrls: ['http://localhost:3000'],
+        callbackUrls,
+        logoutUrls,
       },
       preventUserExistenceErrors: true,
       generateSecret: false
@@ -160,6 +182,16 @@ export class AuthStack extends cdk.Stack {
       value: this.identityPool.ref,
       description: "Identity Pool ID required for federation",
       exportName: `${this.stackName}-IdentityPoolId`
+    });
+
+    new cdk.CfnOutput(this, "CallbackUrls", {
+      value: callbackUrls.join(', '),
+      description: "Configured OAuth callback URLs",
+    });
+
+    new cdk.CfnOutput(this, "LogoutUrls", {
+      value: logoutUrls.join(', '),
+      description: "Configured OAuth logout URLs",
     });
   }
 }

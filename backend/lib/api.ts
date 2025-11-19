@@ -54,7 +54,9 @@ export class APIStack extends cdk.Stack {
       timeToLiveAttribute: "expirationTime",
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       encryption: dynamodb.TableEncryption.AWS_MANAGED,
-      pointInTimeRecovery: true,
+      pointInTimeRecoverySpecification: {
+        pointInTimeRecoveryEnabled: true,
+      },
     });
 
     // Create Lambda role with basic execution permissions
@@ -169,7 +171,7 @@ export class APIStack extends cdk.Stack {
       this,
       "marketplaceRedirect",
       {
-        runtime: lambda.Runtime.NODEJS_18_X,
+        runtime: lambda.Runtime.NODEJS_20_X,
         entry: "./lambda/marketplace/redirect.ts",
         handler: "handler",
         environment: {

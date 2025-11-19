@@ -1,5 +1,7 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
+<!--
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: MIT-0
+-->
 
 # Marketplace Enterprise Federation Access - Backend
 
@@ -57,11 +59,11 @@ npm install esbuild  # For local bundling
 ### 2. Configure Environment (Optional)
 
 ```bash
-# Silence Node.js version warnings
-export JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION=1
-
 # Use local bundling instead of Docker (recommended for M1/M2 Macs)
 export CDK_DOCKER=false
+
+# Set your preferred AWS region (optional, defaults to us-east-1)
+export CDK_DEPLOY_REGION=eu-west-1  # or us-west-2, ap-southeast-2, etc.
 ```
 
 ### 3. Build and Deploy
@@ -80,6 +82,12 @@ npx cdk deploy --all --require-approval never
 npx cdk deploy AuthStack
 npx cdk deploy APIStack
 ```
+
+**Multi-Region Deployment:**
+- Set `CDK_DEPLOY_REGION` to deploy to any AWS region
+- CloudFront WAF automatically deploys to us-east-1 (AWS requirement)
+- All other resources deploy to your chosen region
+- See [../REGION-DEPLOYMENT.md](../REGION-DEPLOYMENT.md) for detailed guidance
 
 ### 4. Get Deployment Outputs
 

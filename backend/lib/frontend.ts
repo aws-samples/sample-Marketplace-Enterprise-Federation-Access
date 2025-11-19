@@ -19,6 +19,7 @@ export interface FrontendStackProps extends cdk.StackProps {
   readonly userPool: cognito.UserPool;
   readonly userPoolClient: cognito.UserPoolClient;
   readonly api: apigateway.RestApi;
+  readonly primaryRegion?: string; // Region where Cognito/API are deployed
 }
 
 export class FrontendStack extends cdk.Stack {
@@ -30,9 +31,20 @@ export class FrontendStack extends cdk.Stack {
     super(scope, id, props);
 
     const enableWaf = props?.enableWaf ?? true;
+    const primaryRegion = props.primaryRegion || this.region;
 
-    // Create WAF Web ACL for CloudFront (must be in us-east-1)
+    // Create WAF Web ACL for CloudFront
+    // IMPORTANT: CloudFront WAF Web ACLs MUST be created in us-east-1 (AWS requirement)
+    // This stack should be deployed in us-east-1 when using CloudFront WAF
     if (enableWaf) {
+      if (this.region !== "us-east-1") {
+        console.warn(
+          "WARNING: CloudFront WAF Web ACLs must be created in us-east-1. " +
+          `Current region is ${this.region}. WAF will be disabled. ` +
+          "To enable WAF, deploy FrontendStack in us-east-1."
+        );
+      }
+      
       this.webAcl = new wafv2.CfnWebACL(this, "CloudFrontWebACL", {
         scope: "CLOUDFRONT",
         defaultAction: { allow: {} },
@@ -294,9 +306,15 @@ export class FrontendStack extends cdk.Stack {
 
     // Output configuration values for reference
     new cdk.CfnOutput(this, "CognitoRegion", {
-      value: this.region,
-      description: "Cognito Region",
+      value: primaryRegion,
+      description: "Cognito Region (where auth resources are deployed)",
       exportName: `${this.stackName}-CognitoRegion`,
+    });
+
+    new cdk.CfnOutput(this, "FrontendRegion", {
+      value: this.region,
+      description: "Frontend/CloudFront Region (must be us-east-1 for WAF)",
+      exportName: `${this.stackName}-FrontendRegion`,
     });
 
     new cdk.CfnOutput(this, "CognitoUserPoolId", {
@@ -323,11 +341,14 @@ export class FrontendStack extends cdk.Stack {
     userPoolClient: cognito.UserPoolClient,
     api: apigateway.RestApi
   ): s3deploy.BucketDeployment {
+    // Use the region where Cognito is actually deployed, not the frontend stack region
+    const cognitoRegion = userPool.stack.region;
+    
     const configContent = `// Auto-generated configuration by CDK
 // Generated at deployment time
 // This file is automatically uploaded to S3 and served via CloudFront
 window.APP_CONFIG = {
-  COGNITO_REGION: '${this.region}',
+  COGNITO_REGION: '${cognitoRegion}',
   COGNITO_USER_POOL_ID: '${userPool.userPoolId}',
   COGNITO_USER_POOL_WEB_CLIENT_ID: '${userPoolClient.userPoolClientId}',
   API_ENDPOINT: '${api.url}'
@@ -356,7 +377,7 @@ window.APP_CONFIG = {
 # Note: In production, config is loaded from /config.js at runtime
 
 # Cognito Configuration
-VITE_COGNITO_REGION=${this.region}
+VITE_COGNITO_REGION=${cognitoRegion}
 VITE_COGNITO_USER_POOL_ID=${userPool.userPoolId}
 VITE_COGNITO_USER_POOL_WEB_CLIENT_ID=${userPoolClient.userPoolClientId}
 

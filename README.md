@@ -1,5 +1,7 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
+<!--
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: MIT-0
+-->
 
 # Marketplace Enterprise Federation Access
 
@@ -70,6 +72,36 @@ A secure AWS marketplace federation application that provides authenticated acce
 - **Docker** (for CDK bundling)
 - **npm** or **yarn** package manager
 
+## 🌍 Multi-Region Support
+
+This application supports deployment in **any AWS region**. By default, it deploys to us-east-1, but you can deploy to any region:
+
+```bash
+# Deploy to Europe
+export CDK_DEPLOY_REGION=eu-west-1
+npx cdk deploy --all
+
+# Deploy to Asia Pacific
+export CDK_DEPLOY_REGION=ap-southeast-2
+npx cdk deploy --all
+```
+
+**Important:** CloudFront WAF Web ACLs must be in us-east-1 (AWS requirement), but all other resources (Cognito, API Gateway, Lambda, DynamoDB) can be in any region. The deployment automatically handles this.
+
+📖 **See [REGION-DEPLOYMENT.md](REGION-DEPLOYMENT.md) for detailed multi-region deployment guide.**
+
+## 🛡️ WAF Configuration
+
+AWS WAF (Web Application Firewall) is **enabled by default** for both API Gateway and CloudFront. To disable WAF (e.g., for development):
+
+```bash
+# Disable WAF for all stacks
+export ENABLE_WAF=false
+npx cdk deploy --all
+```
+
+**Note:** Disabling WAF reduces security but can lower costs for development/testing environments.
+
 ## Deployment Guide
 
 ### Step 1: Clone the Repository
@@ -94,12 +126,22 @@ npm install esbuild
 # Build the project
 npm run build
 
+# (Optional) Set your preferred AWS region
+# If not set, defaults to us-east-1
+export CDK_DEPLOY_REGION=us-west-2  # or eu-west-1, ap-southeast-2, etc.
+
 # Bootstrap CDK (only needed once per AWS account/region)
 npx cdk bootstrap
 
 # Deploy all stacks
 npx cdk deploy --all --require-approval never
 ```
+
+**Region Selection:**
+- Choose a region close to your users for lower latency
+- All resources deploy to your chosen region
+- CloudFront WAF automatically deploys to us-east-1 (AWS requirement)
+- See [REGION-DEPLOYMENT.md](REGION-DEPLOYMENT.md) for detailed guidance
 
 **Save the deployment outputs:**
 ```yaml
@@ -407,7 +449,7 @@ For support and questions:
 - [ ] Additional marketplace products
 - [ ] Advanced session analytics
 - [ ] Custom branding options
-- [ ] Multi-region deployment
+- [x] Multi-region deployment (✅ Completed - see [REGION-DEPLOYMENT.md](REGION-DEPLOYMENT.md))
 - [ ] Enhanced monitoring dashboard
 - [ ] Automated testing pipeline
 
