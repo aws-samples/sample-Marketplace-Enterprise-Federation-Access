@@ -135,11 +135,11 @@ Product IDs are now stored in S3 and loaded automatically by the Lambda function
 ```
 
 **Benefits:**
-- ✅ No environment variables needed
-- ✅ Easy updates without redeployment
-- ✅ Version controlled configuration
-- ✅ Automatic S3 upload during deployment
-- ✅ Lambda caching (5-minute TTL)
+- No environment variables needed
+- Easy updates without redeployment
+- Version controlled configuration
+- Automatic S3 upload during deployment
+- Lambda caching (5-minute TTL)
 
 ### Adding New Products
 
@@ -600,7 +600,7 @@ npx cdk deploy --all --context environment=staging
 npx cdk deploy --all --context environment=prod
 ```
 
-## 🚀 CI/CD Integration
+## CI/CD Integration
 
 ### GitHub Actions Example
 
@@ -677,7 +677,7 @@ aws cloudformation describe-stacks \
   --query 'Stacks[0].Outputs' > auth-stack-outputs.json
 ```
 
-## 📈 Performance Optimization
+## Performance Optimization
 
 ### Lambda Optimization
 
@@ -698,7 +698,7 @@ aws cloudformation describe-stacks \
 - **Throttling**: 10,000 requests per second
 - **Compression**: Automatic response compression
 
-## 🧹 Cleanup
+## Cleanup
 
 ### Complete Cleanup
 

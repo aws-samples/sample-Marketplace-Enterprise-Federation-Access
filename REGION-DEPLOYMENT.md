@@ -6,7 +6,7 @@ This application supports deployment in **any AWS region**, with one important c
 
 ## Region Requirements
 
-### ✅ Can Deploy in Any Region
+### Can Deploy in Any Region
 - **Cognito User Pool** - Authentication service
 - **API Gateway** - REST API endpoints
 - **Lambda Functions** - Business logic
@@ -14,7 +14,7 @@ This application supports deployment in **any AWS region**, with one important c
 - **S3 Buckets** - Configuration and static assets
 - **Regional WAF** - API Gateway protection
 
-### ⚠️ Must Deploy in us-east-1
+### Must Deploy in us-east-1
 - **CloudFront WAF Web ACL** - Global CDN protection (AWS requirement)
 
 ## Why us-east-1 for CloudFront WAF?
@@ -39,13 +39,13 @@ npx cdk deploy --all
 ```
 
 **Pros:**
-- ✅ Simplest deployment
-- ✅ All resources in one region
-- ✅ CloudFront WAF enabled by default
+- Simplest deployment
+- All resources in one region
+- CloudFront WAF enabled by default
 
 **Cons:**
-- ❌ May have higher latency for users far from us-east-1
-- ❌ Not optimal for international users
+- May have higher latency for users far from us-east-1
+- Not optimal for international users
 
 ### Option 2: Multi-Region - Optimal for Global Users
 Deploy application resources in your preferred region, CloudFront WAF in us-east-1.
@@ -58,13 +58,13 @@ npx cdk deploy --all
 ```
 
 **Pros:**
-- ✅ Lower latency for regional users
-- ✅ Data residency compliance
-- ✅ CloudFront still provides global CDN
-- ✅ CloudFront WAF enabled
+- Lower latency for regional users
+- Data residency compliance
+- CloudFront still provides global CDN
+- CloudFront WAF enabled
 
 **Cons:**
-- ⚠️ Slightly more complex (handled automatically by CDK)
+- Slightly more complex (handled automatically by CDK)
 
 ### Option 3: Regional Only (No WAF)
 Deploy everything in your region without WAF for development/testing.
@@ -78,13 +78,13 @@ npx cdk deploy --all
 ```
 
 **Pros:**
-- ✅ Fully regional deployment
-- ✅ Lower costs (no WAF charges)
-- ✅ Simplest for non-production environments
+- Fully regional deployment
+- Lower costs (no WAF charges)
+- Simplest for non-production environments
 
 **Cons:**
-- ❌ No WAF protection
-- ❌ Not recommended for production
+- No WAF protection
+- Not recommended for production
 
 ## Supported Regions
 
@@ -345,10 +345,10 @@ To migrate an existing deployment to a new region:
 
 ## Summary
 
-- ✅ **Application resources** can deploy to any AWS region
-- ⚠️ **CloudFront WAF** must be in us-east-1 (AWS requirement)
-- 🌍 **CloudFront CDN** is global regardless of region
-- 🚀 **Deployment is automatic** - just set `CDK_DEPLOY_REGION`
-- 📊 **Choose region based on users** - lower latency = better UX
+- **Application resources** can deploy to any AWS region
+- **CloudFront WAF** must be in us-east-1 (AWS requirement)
+- **CloudFront CDN** is global regardless of region
+- **Deployment is automatic** - just set `CDK_DEPLOY_REGION`
+- **Choose region based on users** - lower latency = better UX
 
 For most users, deploying to your nearest region provides the best experience while maintaining CloudFront's global CDN benefits.

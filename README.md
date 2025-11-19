@@ -72,7 +72,7 @@ A secure AWS marketplace federation application that provides authenticated acce
 - **Docker** (for CDK bundling)
 - **npm** or **yarn** package manager
 
-## 🌍 Multi-Region Support
+## Multi-Region Support
 
 This application supports deployment in **any AWS region**. By default, it deploys to us-east-1, but you can deploy to any region:
 
@@ -88,9 +88,9 @@ npx cdk deploy --all
 
 **Important:** CloudFront WAF Web ACLs must be in us-east-1 (AWS requirement), but all other resources (Cognito, API Gateway, Lambda, DynamoDB) can be in any region. The deployment automatically handles this.
 
-📖 **See [REGION-DEPLOYMENT.md](REGION-DEPLOYMENT.md) for detailed multi-region deployment guide.**
+ **See [REGION-DEPLOYMENT.md](REGION-DEPLOYMENT.md) for detailed multi-region deployment guide.**
 
-## 🛡️ WAF Configuration
+## WAF Configuration
 
 AWS WAF (Web Application Firewall) is **enabled by default** for both API Gateway and CloudFront. To disable WAF (e.g., for development):
 
@@ -449,7 +449,7 @@ For support and questions:
 - [ ] Additional marketplace products
 - [ ] Advanced session analytics
 - [ ] Custom branding options
-- [x] Multi-region deployment (✅ Completed - see [REGION-DEPLOYMENT.md](REGION-DEPLOYMENT.md))
+- [x] Multi-region deployment (Completed - see [REGION-DEPLOYMENT.md](REGION-DEPLOYMENT.md))
 - [ ] Enhanced monitoring dashboard
 - [ ] Automated testing pipeline
 

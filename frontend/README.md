@@ -40,7 +40,7 @@ A modern React application built with Vite and AWS Cloudscape Design System that
 - **npm** or **yarn** package manager
 - **Backend deployed** - API Gateway and Cognito must be deployed first
 
-## 🚀 Quick Start - Automatic Configuration
+## Quick Start - Automatic Configuration
 
 The frontend is automatically configured during deployment. No manual setup required!
 
@@ -275,10 +275,10 @@ npm run build
 
 ### Browser Compatibility
 
-- ✅ Chrome 109+
-- ✅ Firefox 132+
-- ✅ Safari 18+
-- ✅ Edge 131+
+- Chrome 109+
+- Firefox 132+
+- Safari 18+
+- Edge 131+
 
 ## Performance
 
