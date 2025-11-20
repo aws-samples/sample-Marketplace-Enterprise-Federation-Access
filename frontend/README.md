@@ -36,7 +36,7 @@ A modern React application built with Vite and AWS Cloudscape Design System that
 
 ## Prerequisites
 
-- **Node.js** 20.x, 22.x, 24.x or higher
+- **Node.js** 22.x, 24.x or higher
 - **npm** or **yarn** package manager
 - **Backend deployed** - API Gateway and Cognito must be deployed first
 
