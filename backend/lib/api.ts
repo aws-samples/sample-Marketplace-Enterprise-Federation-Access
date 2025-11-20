@@ -171,7 +171,7 @@ export class APIStack extends cdk.Stack {
       this,
       "marketplaceRedirect",
       {
-        runtime: lambda.Runtime.NODEJS_20_X,
+        runtime: lambda.Runtime.NODEJS_22_X,
         entry: "./lambda/marketplace/redirect.ts",
         handler: "handler",
         environment: {
